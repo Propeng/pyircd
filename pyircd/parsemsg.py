@@ -16,8 +16,8 @@
 
 #pyircd/parsemsg.py
 
-def parse_command():
+def parse_command(msg):
     pass
 
-def form_reply():
+def form_reply(msg):
     pass

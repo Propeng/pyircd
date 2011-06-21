@@ -16,11 +16,13 @@
 
 #pyircd/server.py
 
-import parseconf, checkconf, logger
+import parseconf, checkconf, logger, connection
 import socket
 
 class Server:
     def __init__(self, confdir):
+        self.listen_loop = False
+        
         self.confdir = confdir
         self.logfile = confdir + "/pyircd.log"
         self.conffile = confdir + "/pyircd.conf"
@@ -41,5 +43,11 @@ class Server:
     
     def loop(self):
         self.logger.info("Starting loop...")
-        #s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        #s.bind(('', int(self.conf['port'])))
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind(('', int(self.conf['port'])))
+        s.listen(1)
+        
+        while self.listen_loop:
+            c, a = s.accept()
+            conn = connection.Connection(self.logger, self, c, a)
+            conn.listen()

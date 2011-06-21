@@ -14,15 +14,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#pyircd.py
+#pyircd/connection.py
 
-from pyircd import server
-import os
+import logger
 
-if __name__ == '__main__':
-    #TODO: cross-platform config path
-    confdir = os.path.expanduser("~/.pyircd")
+class Connection:
+    def __init__(self, logger, server, conn, addr):
+        self.logger = logger
+        self.server = server
+        self.socket = conn
+        self.addr = addr[0]
+        self.id = addr[1]
+        
+        self.logger.info("Connection from %s[%d]" % self.addr, self.id)
     
-    server = server.Server(confdir)
-    server.listen_loop = True
-    server.loop()
+    def listen(self):
+        pass

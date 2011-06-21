@@ -16,8 +16,6 @@
 
 #pyircd/connection.py
 
-import logger
-
 class Connection:
     def __init__(self, logger, server, conn, addr):
         self.logger = logger

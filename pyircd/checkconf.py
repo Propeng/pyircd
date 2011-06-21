@@ -26,7 +26,7 @@ class ConfigChecker:
         
     def writeconf(self):
         f = open(self.file, 'w')
-        f.write("#This is an automatically generated pyircd.conf file")
+        f.write("#This is an automatically generated pyircd.conf file\n")
         f.write("port=6667\n")
         f.write("netname=Example IRC Network\n")
         f.write("oper+=oper1:pass1\n")

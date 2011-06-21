@@ -16,11 +16,37 @@
 
 #pyircd/parseconf.py
 
+import sys
+
 class ConfigParser:
     def __init__(self, logger, conffile):
         self.logger = logger
         self.file = conffile
     
     def parse(self):
-        conf = {}
+        conf = { 'port': None,
+                 'netname': None,
+                 'oper': {},
+                }
+        f = open(self.file, 'r')
+        lines = f.read().splitlines()
+        ln = 0
+        for line in lines:
+            ln += 1
+            if line.startswith('#'):
+                continue
+            else:
+                mainsp = line.partition('=')
+                if mainsp[1] == '':
+                    self.logger.error("Config error at line %d: missing value" % ln, True)
+                    sys.exit(1)
+                elif mainsp[0].endswith('+'):
+                    name = mainsp[0][:-1]
+                    subsp = mainsp[2].partition(':')
+                    if subsp[1] == '':
+                        self.logger.error("Config error at line %d: missing subvalue" % ln, True)
+                    conf[name][subsp[0]] = subsp[2]
+                else:
+                    conf[mainsp[0]] = mainsp[2]
+        
         return conf

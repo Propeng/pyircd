@@ -41,8 +41,12 @@ class Logger:
         print logstr
         self.log.write(logstr + "\n")
     
-    def error(self, msg):
-        logstr = "[%s] E: %s" % (self.timestr(), msg)
+    def error(self, msg, fatal=False):
+        fatal = ""
+        if fatal:
+            fatal = "[Fatal] "
+        
+        logstr = "[%s] E: %s %s" % (fatal, self.timestr(), msg)
         print "--- PYIRCD ERROR ---"
         print logstr
         print "--- PYIRCD ERROR ---"

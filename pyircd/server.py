@@ -17,6 +17,7 @@
 #pyircd/server.py
 
 import parseconf, checkconf, logger
+import socket
 
 class Server:
     def __init__(self, confdir):
@@ -39,4 +40,6 @@ class Server:
         self.conf = confparser.parse()
     
     def loop(self):
-        pass
+        self.logger.info("Starting loop...")
+        #s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #s.bind(('', int(self.conf['port'])))

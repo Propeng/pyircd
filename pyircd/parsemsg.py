@@ -17,7 +17,15 @@
 #pyircd/parsemsg.py
 
 def parse_command(msg):
-    pass
+    part = msg.partition(" :")
+    args = part[0].split()
+    if part[1] == " :":
+        args.append(part[2])
+    
+    try:
+        return args[0], args[1:]
+    except IndexError:
+        return '', []
 
 def form_reply(msg):
     pass

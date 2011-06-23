@@ -24,7 +24,8 @@ class ConfigParser:
         self.file = conffile
     
     def parse(self):
-        conf = { 'port': None,
+        conf = { 'hostname' : None,
+                 'port': None,
                  'netname': None,
                  'oper': {},
                 }
